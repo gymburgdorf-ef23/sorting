@@ -5,8 +5,9 @@
   <title>WebDev</title>
   <link rel="stylesheet" href="https://gymburgdorf-ef23.github.io/helpers/basicstyle.css"></link>
   <style>
-    .example {background-color: #ddd; margin: 1em 0;}
-    summary {background-color: #ddd; margin: 1em 0;}
+    .example {background-color: #ddd; margin: 1em 0; padding: 0.5em;}
+    details {background-color: #eee;}
+    summary {background-color: #ddd; margin: 1em 0; padding: 0.5em;}
   </style>
 </head>
 <body>
@@ -21,12 +22,12 @@
   <div>Implementieren Sie die Funktion linearSearch(...)</div>
   <iframe src="https://trinket.io/embed/python/cbec6f0f18" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen title="linear_search_template"></iframe>
 <h3>Maximum einer unsortierten Liste suchen</h3>
-  <div>Beispiel: Welcher Artikel hat die beste Bewertung?</div>
+  <div class="example">Beispiel: Welcher Artikel hat die beste Bewertung?</div>
   <div>Implementieren Sie die Funktion findMax(...)</div>
   <iframe src="https://trinket.io/embed/python/3503bf04b6" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen title="findMax_template"></iframe>
   <div>
     <details>
-      <summary>Zusatzfrage: Wie kommt man mit weniger als doppelt so vielen Vergleichen aus, wenn man sowohl das Maximum als auch das Minimum sucht?</summary>
+      <summary>Zusatzfrage:<br>Wie kommt man mit weniger als doppelt so vielen Vergleichen aus, wenn man sowohl das Maximum als auch das Minimum sucht?</summary>
       <div>Man kann immer die nächsten zwei Elemente a und b vergleichen. Anschliessend vergleicht man das grössere mit dem bisherigen Maximum und das kleinere mit dem bisherigen Minimum.
       So braucht man pro zwei Elemente nur drei Vergleiche statt vier. Diese Verbesserung ist also nicht enorm, die Laufzeit bleibt linear.</div>
     </details>
@@ -34,12 +35,12 @@
 
 <h1>Binary Search</h1>
 <h3>Element in einer sortierten Liste suchen</h3>
-  <div>Beispiel: Person suchen im Telefonbuch (weiss man 2022 noch, was das ist?)</div>
+  <div class="example">Beispiel: Person suchen im Telefonbuch (weiss man 2022 noch, was das ist?)</div>
   <div>Implementieren Sie die Funktion binarySearch(...)</div>
   <iframe src="https://trinket.io/embed/python/e49a5420cf" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen title="binary_search_template"></iframe>
   <div>
   <details>
-    <summary>Zusatzfrage: Wie könnte man das Vorgehen weiter verbessern, wenn die Elemente etwa gleichmässig verteilt sind?</summary>
+    <summary>Zusatzfrage:<br>Wie könnte man das Vorgehen weiter verbessern, wenn die Elemente etwa gleichmässig verteilt sind?</summary>
     <div>Man kann für den nächsten Versuch statt der Mitte eine Position wählen, die etwa der erwarteten Position entspricht (für den Namen Zaugg kann man eher hinten im Telefonbuch aufschlagen). Man nennt dies <i>interpolierendes Suchen</i>.</div>
   </details>
   </div>
