@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<style>
+			:root {--r-main-font-size: 24px; --r-block-margin: 0 0}
+			.reveal .slides {text-align: left;}
+			.twocol52 {display: grid; gap: 1.5em; grid-template-columns: 5fr 2fr;}
+			.twocol32 {display: grid; gap: 2em; grid-template-columns: 3fr 2fr;}
+			.media img {width: 100%;}
+			.reveal .slides h2 {font-size: 1.2em; text-transform: none; margin: 1em 0 0.3em 0;}
+			li {margin: 1em 0;}
+			.scales video {height: 9em;}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section >
+					<div class="twocol52">
+						<div class="leftcol">
+							<h1>Bubble Sort</h1>
+							<h2>Grundidee:</h2>
+							<ul>
+								<li>Gehe die Liste mehrmals aufwärts durch.</li>
+								<li>Vergleiche jeweils ein Element mit seinem rechten Nachbarn.</li>
+								<li>Vertausche die beiden Nachbarn falls nötig.</li>
+							</ul>
+							<h2>Verfeinerungen:</h2>
+							<ul>
+								<li>Nach einem Durchlauf wird ganz hinten das grösste Element stehen.
+									Jeder weitere Durchlauf kann somit um ein Element früher aufhören.
+								</li>
+								<li>Merk dir, ob es in einem Durchlauf noch Vertauschungen gab.
+									Wenn es keine mehr gab, ist man frühzeitig fertig.
+								</li>
+							</ul>
+							<!--https://www.youtube.com/watch?v=JP5KkzdUEYI-->
+						</div>
+						<div class="rightcol media">
+							<img src="./media/bubblesort-numbers.gif">
+							<img src="./media/bubblesort.gif">
+							<img src="./media/bubblesort-fast.gif">
+						</div>
+					</div>
+				</section>
+				<section >
+					<div class="twocol32">
+						<div class="leftcol">
+							<h1>Selection Sort</h1>
+							<h2>Grundidee:</h2>
+							<ul>
+								<li>Ganz vorne muss das kleineste Element stehen.</li>
+								<li>Suche also das Minimum der Liste und vertausche es mit dem Element an der ersten Position, usw.</li>
+							</ul>
+						</div>
+						<div class="rightcol media">
+							<img src="./media/selectionSort.gif">
+							
+						</div>
+					</div>
+					<img src="./media/selectionSortLonger.gif">
+				</section>
+				<section >
+					<div class="twocol52">
+						<div class="leftcol">
+							<h1>Insertion Sort</h1>
+							<h2>Grundidee:</h2>
+							<ul>
+								<li>Das erste Element ist bereits eine sortierte Teilliste.</li>
+								<li>Nimm nun immer das nächste Element füge es am richtigen Ort ein.</li>
+								<li>Dazu kann man es soweit wie nötig nach vorne bewegen.</li>
+							</ul>
+						</div>
+						<div class="rightcol media">
+							<img src="./media/insertionSortNumbers.png">
+							<img src="./media/InsertionSort.gif">
+						</div>
+					</div>
+				</section>
+				<section >
+					<section>
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Merge Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Teile die Liste in zwei Teile auf.</li>
+									<li>Diese zwei Teile werden dann wiederum in zwei Teile aufgeteilt usw.</li>
+									<li>Wenn eine Teilliste nur noch ein Element hat, ist sie sortiert und kann zurückgegeben werden.</li>
+									<li>Wenn man zwei sortierte Teillisten hat, kann man diese schnell zu einer einzigen sortierten Liste zusammenfügen (merging). Man muss dafür nur die beiden vordersten Element vergleichen und jeweils das kleiner auswählen (eine Art Reissverschluss, nur dass es nicht immer abwechselt, sondern immer das kleinere nimmt).</li>
+							</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/mergeSort.png">
+								<img src="./media/mergesort.gif">
+							</div>
+						</div>
+					</section>
+					<section>
+						<img src="./media/merge-sort.png">
+					</section>
+				</section>
+				<section >
+					<section>
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Quick Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Wähle ein Element aus (nachfolgend Pivot genannt).</li>
+									<li>Teile die übrigen Elemente in zwei Listen auf.
+										<ul>
+											<li>In der Liste links vom Pivot sollen Elemente stehen, die kleiner als das Pivot sind.</li>
+											<li>In der Liste rechts vom Pivot sollen Elemente stehen, die grösser als das Pivot sind.</li>
+										</ul>
+									</li>
+									<li>
+										Die beiden Teillisten müssen nun in sich noch sortiert werden.
+										Dazu kann man wieder Quicksort verwenden (d.h. ein neues Pivot auswählen usw.)
+									</li>
+							</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/QuickSort.gif">
+							</div>
+						</div>
+					</section>
+					<section >
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Quick Sort</h1>
+								<h2>Verfeinerungen:</h2>
+								<ul>
+									<li>Das Pivot sollte die Liste möglichst mittig halbieren. Eine zufällige Auswahl (randomized pivot) ist besser, als immer das vorderste oder hinterste Element zu nehmen. Dies ist besonders wichtig, wenn die Liste bereits ganz oder fast sortiert ist.
+										Noch besser: Median of 3 oder median of medians.
+									</li>
+									<li>Noch besser: Median of 3 oder median of medians.
+									</li>
+								</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/QuicksortLonger.gif">
+								<img src="./media/Quicksort1.png">
+
+							</div>
+						</div>
+					</section>
+					<section>
+						<img src="./media/quick-sort.png">
+					</section>
+				</section>
+				<section>
+					<section >
+						<div class="twocol52">
+							<div class="leftcol">
+								<h1>Heap Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Baue einen Max-Heap aus der Liste.</li>
+									<li>Wähle nun jeweils die Wurzel aus (=grösstes Element).</li>
+									<li>Vertausche es nun mit dem hintersten Element des Heaps und lasse dieses soweit hinab sinken, bis die Heapeigenschaft wieder hergestellt ist. Der Heap ist nun um ein Element kleiner.</li>
+									<li>Weiter machen bis der Heap leer ist.</li>
+								</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/heapsort.gif">
+							</div>
+						</div>
+					</section>
+					<section>
+						<img src="./media/HeapSortExample.gif"><br>
+						<div>Heaps können sehr gut als Priority Queues verwendet werden.</div>
+						<a href="http://btv.melezinek.cz/binary-heap.html">Heap Sort Visulization</a>
+					</section>
+				</section>
+				<section >
+					<div class="twocol32">
+						<div class="leftcol">
+							<h1>Bucket Sort</h1>
+							<h2>Grundidee:</h2>
+							<ul>
+								<li>Teile diesen Bereich in viele kleine Teilbereiche (Buckets) auf.</li>
+								<li>Platziere jedes Element im richtigen Bucket.</li>
+								<li>Sortiere nun die (wenigen) Elemente in den Buckets mit einem beliebigen Verfahren (z.B. Insertion Sort).</li>
+								<li>Dieses Vorgehen funktioniert nur, wenn die Elemente nicht zu ungleichmässig über einen bestimmten Bereich verteilt sind.</li>
+							</ul>
+						</div>
+						<div class="rightcol media" style="background-color: beige;">
+							<img src="./media/bucketSort.png">
+							<br><br>
+							<img src="./media/Bucket_2.webp">
+						</div>
+					</div>
+				</section>
+				<section >
+					<section>
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Radix Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Bilde Gruppen mit der hintersten Ziffer.</li>
+									<li>Fasse diese ohne zu mischen wieder zu einer Gruppe zusammen.</li>
+									<li>Bilde Gruppen nach der zweithintersten Ziffer.</li>
+									<li>Usw. bis zur vordersten Ziffer.</li>
+									<li>Dieses Vorgehen funktioniert nur, wenn alle Elemente höchstens eine bestimmte Anzahl Ziffern/Buchstaben haben.</li>
+								</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/radixsort.png">
+								<img src="./media/radixSortAnim.gif">
+								<img src="./media/radixSort.jpg">
+							</div>
+						</div>
+					</section>
+					<section>
+						<h1>Radix Sort</h1>
+						<img style="width:60%;" src="./media/LochkartenSortierer.jpg">
+						<div>
+							Radix Sort wurde früher zum elektromechanischen<br>
+							Sortieren von Lochkarten verwendet.
+						</div>
+					</section>
+				</section>
+				<section>
+					<div class="scales">
+						<h2>Um welche Sortierverfahren handelt es sich?</h1>
+						<video controls src="./media/InsertionSort.mp4"></video>
+						<video controls src="./media/MergeSort.mp4"></video>
+						<video controls src="./media/BubbleSort.mp4"></video>
+						<video controls src="./media/QuickSort.mp4"></video>
+						<video controls src="./media/SelectionSort.mp4"></video>
+						<br>
+						<a href="https://www.csfieldguide.org.nz/en/interactives/sorting-algorithms/">Zum selbst ausprobieren</a>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
