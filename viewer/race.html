@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Sorting</title>
+	<link rel="stylesheet" href="https://gymburgdorf-ef23.github.io/helpers/basicstyle.css"></link>
+	<link rel="stylesheet" href="./sorting.css"></link>
+	<script src="./sortinghelpers.js"></script>
+	<script src="./performancePlots.js"></script>
+	<script src="./sortingalgosSimplecode.js"></script>
+</head>
+<body>
+	<h1>Sortierverfahren</h1>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/koMpGeZpu4Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<div class="controls">
+		<button onclick="start()">Start Race to 1 Mio.</button>
+		<button onclick="toggle()">Play/Pause</button>
+	</div>
+	<div class="diagram"></div>
+	<script>
+		
+		function pickNextSorter(totaltime) {
+			let nextSorter = null
+			let leastTime = Infinity
+			for(let entry of Object.entries(totaltime)) {
+				const [sorter, time] = entry
+				if(time < leastTime) {
+					leastTime = time
+					nextSorter = sorter
+				}
+			}
+			return nextSorter
+		}
+
+		let running = true
+
+		function toggle() {
+			running = !running
+		}
+
+		async function start() {
+
+			const totaltime = {}
+			const numberOfItems = {}
+			for(let sorter of Object.keys(sorters)) {
+				totaltime[sorter] = 0
+				numberOfItems[sorter] = 2
+			}
+			const points = []
+
+			let reached1million = false
+			while(!reached1million) {
+				if(running) {
+					const sorter = pickNextSorter(totaltime)
+					const N = numberOfItems[sorter]
+					const sortWorker = new Worker("./sortworker.js")
+					const t = await postTest({sortWorker, sorter, N, runs: Math.ceil(5 + 1e5/N)})
+					points.push([N, t, sorter])
+					totaltime[sorter] += t
+					numberOfItems[sorter] = Math.ceil(1.1*N)
+					if(N >= 1e6) {
+						reached1million = true
+					}
+					document.querySelector(".diagram").innerHTML =  renderLines(points)
+					sortWorker.terminate()
+				}
+				await sleep(20)
+			}
+		}
+
+		let msgId = 0
+		async function postTest({sortWorker, sorter, N, runs=10}) {
+			return new Promise((resolve) => {
+				const myId = msgId++
+				const myListener = (e) => {
+					const {sorter, N, t, myId: answerId} = e.data
+					if(answerId === myId) {
+						sortWorker.removeEventListener('message', myListener)
+						resolve(t)
+					}
+				}
+				sortWorker.addEventListener('message', myListener)
+				sortWorker.postMessage({sorter, N, runs, myId})
+			})
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+svg {max-height: 80vh; max-width: 80vw;}
+rect {stroke: rgba(0,0,0,0); stroke-width: 0;}
+text {font: bold 36px Verdana, Helvetica, Arial, sans-serif;}
+
+button {outline-width: 2px; outline-style: solid; margin-right: 0.5em; border: none;}
+
+:root {
+	--bubbleSort: #EC5F67;
+	--insertionSort: #dd75eb;
+	--selectionSort: #b12956;
+	--quickSort: #6acbd4;
+	--mergeSort: #6181eb;
+	--heapSort: #3e3bff;
+	--bucketSort: #59ce91;
+	--radixSort: #4a8d13;
+	--jsSort: #95999c;
+}
+
+.bubbleSort {color: var(--bubbleSort); fill: var(--bubbleSort);}
+.insertionSort {color: var(--insertionSort); fill: var(--insertionSort);}
+.selectionSort {color: var(--selectionSort); fill: var(--selectionSort)}
+.quickSort {color: var(--quickSort); fill: var(--quickSort);}
+.mergeSort {color: var(--mergeSort); fill: var(--mergeSort);}
+.heapSort {color: var(--heapSort); fill: var(--heapSort);}
+.radixSort {color: var(--radixSort); fill: var(--radixSort);}
+.bucketSort {color: var(--bucketSort); fill: var(--bucketSort);}
+.jsSort {color: var(--jsSort); fill: var(--jsSort);}
+
+.line.bubbleSort {color: var(--bubbleSort); stroke: var(--bubbleSort); fill:none; stroke-width: 10;}
+.line.insertionSort {color: var(--insertionSort); stroke: var(--insertionSort); fill:none; stroke-width: 10;}
+.line.selectionSort {color: var(--selectionSort); stroke: var(--selectionSort);  fill:none; stroke-width: 10;}
+.line.quickSort {color: var(--quickSort); stroke: var(--quickSort); fill:none; stroke-width: 10;}
+.line.mergeSort {color: var(--mergeSort); stroke: var(--mergeSort); fill:none; stroke-width: 10;}
+.line.heapSort {color: var(--heapSort); stroke: var(--heapSort); fill:none; stroke-width: 10;}
+.line.radixSort {color: var(--radixSort); stroke: var(--radixSort); fill:none; stroke-width: 10;}
+.line.bucketSort {color: var(--bucketSort); stroke: var(--bucketSort); fill:none; stroke-width: 10;}
+.line.jsSort {color: var(--jsSort); stroke: var(--jsSort); fill:none; stroke-width: 10;}

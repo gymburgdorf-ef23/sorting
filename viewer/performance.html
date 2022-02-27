@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Sorting</title>
+	<link rel="stylesheet" href="https://gymburgdorf-ef23.github.io/helpers/basicstyle.css"></link>
+	<link rel="stylesheet" href="./sorting.css"></link>
+	<script src="./sortinghelpers.js"></script>
+	<script src="./performancePlots.js"></script>
+	<script src="./sortingalgosSimplecode.js"></script>
+</head>
+<body>
+	<h1>Sortierverfahren</h1>
+	<div class="controls">
+		<div>
+			<button onclick="compareSmall()">Compare small</button>
+			<button onclick="compareMedium()">Compare medium</button>
+			<button onclick="compareLarge()">Compare large</button>
+			<button onclick="compareMillion()">Compare 1 Mio.</button>
+		</div>
+		<select name="Nmax">
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+			<option value="200">200</option>
+			<option value="500">500</option>
+			<option value="1000">1000</option>
+			<option value="2000">2000</option>
+			<option value="5000">5000</option>
+			<option value="10000">10000</option>
+			<option value="20000">20000</option>
+			<option value="50000">50000</option>
+		</select>
+	</div>
+	<div class="diagram"></div>
+	<script>
+		
+		for(let sorter of Object.keys(sorters)) {
+			document.querySelector(".controls").innerHTML += `<button class="btn ${sorter}" onClick="runTest('${sorter}')">${sorter}</button>`
+		}
+
+		let msgId = 0
+		async function postTest({sortWorker, sorter, N, runs=10}) {
+			return new Promise((resolve) => {
+				const myId = msgId++
+				const myListener = (e) => {
+					const {sorter, N, t, myId: answerId} = e.data
+					if(answerId === myId) {
+						sortWorker.removeEventListener('message', myListener)
+						resolve(t)
+					}
+				}
+				sortWorker.addEventListener('message', myListener)
+				sortWorker.postMessage({sorter, N, runs, myId})
+			})
+		}
+
+		async function runTest(sorter) {
+			const Nmax = + document.querySelector("[name=Nmax]").value
+			const points = []
+			
+			for(let N of testRuns(Nmax, Math.min(200, Nmax))) {
+				const sortWorker = new Worker("./sortworker.js")
+				const t = await postTest({sortWorker, sorter, N, runs: 1000000 / Nmax})
+				points.push([N, t, sorter])
+				document.querySelector(".diagram").innerHTML =  renderPoints(points)
+				sortWorker.terminate()
+				await sleep(20)
+			}
+		}
+
+		async function compare(candidates, Nmax, Nvalues, runs) {
+			const points = []
+			for(let sorter of candidates) {
+				for(let N of testRuns(Nmax, Nvalues)) {
+					const sortWorker = new Worker("./sortworker.js")
+					const t = await postTest({sortWorker, sorter, N, runs})
+					points.push([N, t, sorter])
+					document.querySelector(".diagram").innerHTML =  renderPoints(points)
+					sortWorker.terminate()
+					await sleep(20)
+				}
+			}
+		}
+
+		async function compareSmall() {
+			await compare(Object.keys(sorters), 100, 50, 20000)
+		}
+
+		async function compareMedium() {
+			await compare(Object.keys(sorters), 2000, 50, 200)
+		}
+
+		async function compareLarge() {
+			await compare( ["quickSort", "mergeSort", "heapSort", "radixSort", "bucketSort", "jsSort"], 50000, 50, 50)
+		}
+
+		async function compareMillion() {
+			await compare( ["quickSort", "mergeSort", "heapSort", "radixSort", "bucketSort", "jsSort"], 1000000, 30, 5)
+		}
+
+		function testRuns(Nmax, points) {
+			const runs = []
+			const dN = Nmax / points
+			const teeth = 4
+			let next = Nmax
+			for(let i = 0; i < points; i++) {
+				runs.push(Math.floor(next))
+				next -= dN * teeth
+				if(next <= 0) {
+					next += Nmax - dN
+				}
+			}
+			return runs
+		}
+
+
+	</script>
+</body>
+</html>

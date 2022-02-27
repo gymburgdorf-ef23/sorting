@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Sorting</title>
+	<link rel="stylesheet" href="https://gymburgdorf-ef23.github.io/helpers/basicstyle.css"></link>
+	<link rel="stylesheet" href="./sorting.css"></link>
+	<style>
+		.btn[disabled] {opacity: 0.2;}
+	</style>
+	<script src="./sortinghelpers.js"></script>
+	<script src="./renderhelpers.js"></script>
+	<script src="./sortingalgosToRender.js"></script>
+</head>
+<body>
+	<!--button onclick="window.paused=!window.paused">p</button-->
+	<h1>Sortierverfahren</h1>
+	<div class="controls">
+		<select name="N">
+			<option value="64">64</option>
+			<option value="128">128</option>
+			<option value="256">256</option>
+		</select>
+	</div>
+	<div class="diagram"></div>
+	<script>
+
+		for(let sorter of Object.keys(sorters)) {
+			document.querySelector(".controls").innerHTML += `<button class="btn ${sorter}" onClick="run('${sorter}')">${sorter}</button>`
+		}
+
+		async function run(sorter) {
+			document.querySelectorAll(".btn").forEach(n=>n.setAttribute("disabled", "disabled"))
+			const N = + document.querySelector("[name=N]").value
+			const list = createList(N)
+			renderList(list)
+			await sorters[sorter](list)
+			document.querySelectorAll(".btn").forEach(n=>n.removeAttribute("disabled"))
+		}
+
+
+	</script>
+</body>
+</html>
