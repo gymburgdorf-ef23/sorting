@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Sorting</title>
+		<title>Sortierverfahren</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -17,76 +17,168 @@
 			.reveal .slides {text-align: left;}
 			.twocol52 {display: grid; gap: 1.5em; grid-template-columns: 5fr 2fr;}
 			.twocol32 {display: grid; gap: 2em; grid-template-columns: 3fr 2fr;}
+			.twocol11 {display: grid; gap: 2em; grid-template-columns: 1fr 1fr;}
 			.media img {width: 100%;}
 			.reveal .slides h2 {font-size: 1.2em; text-transform: none; margin: 1em 0 0.3em 0;}
 			li {margin: 1em 0;}
 			.scales video {height: 9em;}
+			.perf_explanation {background-color: white; color: black; padding: 1em; font-size: 0.7em;}
+			.perf_explanation img {height: 16em; margin-bottom: 1em;}
+			.perf_explanation li {margin: 0;}
+			.theta {font-weight: bold;}
+			.reveal .hint {color: #ddd; text-decoration: underline; cursor: pointer; margin: 0.4em 0; display: inline-block;}
+			.reveal .hint:hover {color: #ddf;}
+			.titleimages img {height: 5em; margin-right: 1em;}
 		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section >
-					<div class="twocol52">
-						<div class="leftcol">
-							<h1>Bubble Sort</h1>
-							<h2>Grundidee:</h2>
-							<ul>
-								<li>Gehe die Liste mehrmals aufwärts durch.</li>
-								<li>Vergleiche jeweils ein Element mit seinem rechten Nachbarn.</li>
-								<li>Vertausche die beiden Nachbarn falls nötig.</li>
-							</ul>
-							<h2>Verfeinerungen:</h2>
-							<ul>
-								<li>Nach einem Durchlauf wird ganz hinten das grösste Element stehen.
-									Jeder weitere Durchlauf kann somit um ein Element früher aufhören.
-								</li>
-								<li>Merk dir, ob es in einem Durchlauf noch Vertauschungen gab.
-									Wenn es keine mehr gab, ist man frühzeitig fertig.
-								</li>
-							</ul>
-							<!--https://www.youtube.com/watch?v=JP5KkzdUEYI-->
+				<section>
+					<h1>Sorting Algorithms</h1>
+					<div>
+						<div class="titleimages">
+							<img src="./media/bubbleSort.gif">
+							<img src="./media/heapSort.gif">
+							<img src="./media/insertionSort.gif">
+							<img src="./media/quickSort.gif">
 						</div>
-						<div class="rightcol media">
-							<img src="./media/bubblesort-numbers.gif">
-							<img src="./media/bubblesort.gif">
-							<img src="./media/bubblesort-fast.gif">
-						</div>
+						<a class="hint" href="./viewer">Visualisierungen</a>
+					</div>
+					<div>
+						<a class="hint" href="./viewCodeJS.html" target="blank">Implementationen JS</a>
+					</div>
+					<div>
+						<a class="hint" href="./viewCodePython.html" target="blank">Implementationen Python</a>
+					</div>
+					<div>
+						<span class="hint navigate-right">Zu den einzelnen Algorithmen</span>
 					</div>
 				</section>
+				<section>
+					<section>
+						<div class="twocol52">
+							<div class="leftcol">
+								<h1>Bubble Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Gehe die Liste mehrmals aufwärts durch.</li>
+									<li>Vergleiche jeweils ein Element mit seinem rechten Nachbarn.</li>
+									<li>Vertausche die beiden Nachbarn falls nötig.</li>
+								</ul>
+								<h2>Verfeinerungen:</h2>
+								<ul>
+									<li>Nach einem Durchlauf wird ganz hinten das grösste Element stehen.
+										Jeder weitere Durchlauf kann somit um ein Element früher aufhören.
+									</li>
+									<li>Merk dir, ob es in einem Durchlauf noch Vertauschungen gab.
+										Wenn es keine mehr gab, ist man frühzeitig fertig.
+									</li>
+								</ul>
+								<!--https://www.youtube.com/watch?v=JP5KkzdUEYI-->
+							</div>
+							<div class="rightcol media">
+								<img src="./media/bubblesort-numbers.gif">
+								<img src="./media/bubbleSort.gif">
+								<img src="./media/bubblesort-fast.gif">
+							</div>
+						</div>
+					</section>
+					<section>
+						<h2>Performance von Bubble Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/bubbleSort.png">
+								<ul>
+									<li>Die Liste muss n mal durchgegangen werden.</li>
+									<li>Jeder Durchgang darf ein Element früher aufhören.</li>
+									<li>Im Durchschnitt umfasst also jeder Durchgang n/2 Elemente.</li>
+									<li>Die Laufzeit liegt somit im Bereich n * 0.5 n.</li>
+									<li>Das liegt in der Komplexitätsklasse: <span class="theta">Θ ( n² )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/bubbleSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
+						</div>
+					</section>
+				</section>
+
 				<section >
-					<div class="twocol32">
-						<div class="leftcol">
-							<h1>Selection Sort</h1>
-							<h2>Grundidee:</h2>
-							<ul>
-								<li>Ganz vorne muss das kleineste Element stehen.</li>
-								<li>Suche also das Minimum der Liste und vertausche es mit dem Element an der ersten Position, usw.</li>
-							</ul>
+					<section>
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Selection Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Ganz vorne muss das kleineste Element stehen.</li>
+									<li>Suche also das Minimum der Liste und vertausche es mit dem Element an der ersten Position, usw.</li>
+								</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/selectionSort.gif">
+							</div>
 						</div>
-						<div class="rightcol media">
-							<img src="./media/SelectionSort.gif">
-							
+						<img src="./media/selectionSortLonger.gif">
+					</section>
+					<section>
+						<h2>Performance von Selection Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/selectionSort.png">
+								<ul>
+									<li>Es muss n mal das verbleibende Minimum gesucht werden.</li>
+									<li>Die verbleibende Liste wird jedes Mal um ein Element kürzer.</li>
+									<li>Im Durchschnitt umfasst also jeder Durchgang n/2 Elemente.</li>
+									<li>Die Laufzeit liegt somit im Bereich n * 0.5 n.</li>
+									<li>Das liegt in der Komplexitätsklasse: <span class="theta">Θ ( n² )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/selectionSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
 						</div>
-					</div>
-					<img src="./media/SelectionSortLonger.gif">
+					</section>
 				</section>
 				<section >
-					<div class="twocol52">
-						<div class="leftcol">
-							<h1>Insertion Sort</h1>
-							<h2>Grundidee:</h2>
-							<ul>
-								<li>Das erste Element ist bereits eine sortierte Teilliste.</li>
-								<li>Nimm nun immer das nächste Element füge es am richtigen Ort ein.</li>
-								<li>Dazu kann man es soweit wie nötig nach vorne bewegen.</li>
-							</ul>
+					<section>
+						<div class="twocol52">
+							<div class="leftcol">
+								<h1>Insertion Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Das erste Element ist bereits eine sortierte Teilliste.</li>
+									<li>Nimm nun immer das nächste Element füge es am richtigen Ort ein.</li>
+									<li>Dazu kann man es soweit wie nötig nach vorne bewegen.</li>
+								</ul>
+							</div>
+							<div class="rightcol media">
+								<img src="./media/insertionSortNumbers.png">
+								<img src="./media/InsertionSort.gif">
+							</div>
 						</div>
-						<div class="rightcol media">
-							<img src="./media/insertionSortNumbers.png">
-							<img src="./media/InsertionSort.gif">
+					</section>
+					<section>
+						<h2>Performance von Insertion Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/insertionSort.png">
+								<ul>
+									<li>Es muss n mal ein Element in eine Liste eingefügt werden.</li>
+									<li>Die fertige Liste wird jedes Mal um ein Element länger.</li>
+									<li>Das wären im Durchschnitt n/2 Elemente. Der richtige Platz wird im Durchschnitt in der Mitte dieser Liste liegen.</li>
+									<li>Die Laufzeit liegt somit im Bereich n * 0.25 n.</li>
+									<li>Das liegt in der Komplexitätsklasse: <span class="theta">Θ ( n² )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/insertionSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
 						</div>
-					</div>
+					</section>
 				</section>
 				<section >
 					<section>
@@ -110,6 +202,23 @@
 					<section>
 						<img src="./media/merge-sort.png">
 					</section>
+					<section>
+						<h2>Performance von Merge Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/mergeSort.png">
+								<ul>
+									<li>Der Baum hat log₂ n Ebenen</li>
+									<li>Auf jeder Ebene benötigt das Zusammenfügen der Teillisten insgesamt n Schritte.</li>
+									<li>Somit lautet die Komplexitätsklasse: <span class="theta">Θ ( n log n )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/mergeSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
+						</div>
+					</section>
 				</section>
 				<section >
 					<section>
@@ -132,7 +241,7 @@
 							</ul>
 							</div>
 							<div class="rightcol media">
-								<img src="./media/QuickSort.gif">
+								<img src="./media/quickSort.gif">
 							</div>
 						</div>
 					</section>
@@ -159,6 +268,23 @@
 					<section>
 						<img src="./media/quick-sort.png">
 					</section>
+					<section>
+						<h2>Performance von Quick Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/quickSort.png">
+								<ul>
+									<li>Der Baum hat log₂ n Ebenen.</li>
+									<li>Auf jeder Ebene benötigt das Vergleichen aller Elemente mit dem Pivot n Schritte.</li>
+									<li>Somit lautet die Komplexitätsklasse: <span class="theta">Θ ( n log n )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/quickSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
+						</div>
+					</section>
 				</section>
 				<section>
 					<section >
@@ -183,25 +309,66 @@
 						<div>Heaps können sehr gut als Priority Queues verwendet werden.</div>
 						<a href="http://btv.melezinek.cz/binary-heap.html">Heap Sort Visulization</a>
 					</section>
+					<section>
+						<h2>Performance von Heap Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/heapSort.png">
+								<ul>
+									<li>Das Aufbauen des Heaps dauert n log n Schritte, wenn man jedes neue Element an die Spitze einfügt und dann hinuntersinken lässt.
+										Mit einer anderen Technik geht es sogar in Linearzeit.
+									</li>
+									<li>Um aus dem Heap die sortierte Liste zu erzeugen, muss man n mal das Maximum entnehmen. Danach muss das neu an der Spitze eingefügte Element an die passende Stelle sinken (maximal log₂ n Schritte).</li>
+									<li>Somit lautet die Komplexitätsklasse: <span class="theta">Θ ( n log n )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/heapSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
+						</div>
+					</section>
 				</section>
 				<section >
-					<div class="twocol32">
-						<div class="leftcol">
-							<h1>Bucket Sort</h1>
-							<h2>Grundidee:</h2>
-							<ul>
-								<li>Teile diesen Bereich in viele kleine Teilbereiche (Buckets) auf.</li>
-								<li>Platziere jedes Element im richtigen Bucket.</li>
-								<li>Sortiere nun die (wenigen) Elemente in den Buckets mit einem beliebigen Verfahren (z.B. Insertion Sort).</li>
-								<li>Dieses Vorgehen funktioniert nur, wenn die Elemente nicht zu ungleichmässig über einen bestimmten Bereich verteilt sind.</li>
-							</ul>
+					<section>
+						<div class="twocol32">
+							<div class="leftcol">
+								<h1>Bucket Sort</h1>
+								<h2>Grundidee:</h2>
+								<ul>
+									<li>Teile diesen Bereich in viele kleine Teilbereiche (Buckets) auf.</li>
+									<li>Platziere jedes Element im richtigen Bucket.</li>
+									<li>Sortiere nun die (wenigen) Elemente in den Buckets mit einem beliebigen Verfahren (z.B. Insertion Sort).</li>
+									<li>Dieses Vorgehen funktioniert nur, wenn die Elemente nicht zu ungleichmässig über einen bestimmten Bereich verteilt sind.</li>
+								</ul>
+							</div>
+							<div class="rightcol media" style="background-color: beige;">
+								<img src="./media/bucketSort.png">
+								<br><br>
+								<img src="./media/Bucket_2.webp">
+							</div>
 						</div>
-						<div class="rightcol media" style="background-color: beige;">
-							<img src="./media/bucketSort.png">
-							<br><br>
-							<img src="./media/Bucket_2.webp">
+					</section>
+					<section>
+						<h2>Performance von Bucket Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/bucketSort.png">
+								<ul>
+									<li>Zuerst wird die Liste durchlaufen, um das Maximum und Minimum zu finden (n Schritte).</li>
+									<li>Nun wird jedes Element in den passenden Bucket verschoben. Es hat soviele Buckets, dass in jedem Bucket im Durchschnitt eine konstante Anzahl Elemente sind (z.B. 16).
+										Dieses Zuordnet braucht auch n Schritte.
+									</li>
+									<li>Das Sortieren eines Buckets erfordert einige Schritte, ist jedoch unabhängig von n.</li>
+									<li>Somit lautet die Komplexitätsklasse: <span class="theta">Θ ( n )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/bucketSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
 						</div>
-					</div>
+					</section>
 				</section>
 				<section >
 					<section>
@@ -230,6 +397,24 @@
 						<div>
 							Radix Sort wurde früher zum elektromechanischen<br>
 							Sortieren von Lochkarten verwendet.
+						</div>
+					</section>
+					<section>
+						<h2>Performance von Radix Sort</h2>
+						<div class="twocol11 perf_explanation">
+							<div>
+								<img src="./media/perf-sketch/radixSort.png">
+								<ul>
+									<li>Für jede (Dezimal-)Stelle müssen alle n Elemente durchlaufen werden.</li>
+									<li>Dieses Varfahren muss so oft wiederholt werden, wie es Ziffern gibt (k).</li>
+									<li>Insgesamt gibt es also k n Schritte.</li>
+									<li>Somit lautet die Komplexitätsklasse: <span class="theta">Θ ( n )</span></li>
+								</ul>
+							</div>
+							<div>
+								<img src="./media/perf-plot/radixSort.png">
+								<div>Benötigte Millisekunden zum Sortieren von N Elementen (in JS)</div>
+							</div>
 						</div>
 					</section>
 				</section>
