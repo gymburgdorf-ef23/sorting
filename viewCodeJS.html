@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<script src="https://pagecdn.io/lib/ace/1.4.13/ace.min.js" type="text/javascript" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.min.js" type="text/javascript" ></script>
 		<title>Sorting Algorithms</title>
 		<style type="text/css" media="screen">
 			#editor { 
@@ -18,7 +18,7 @@
 	<body>
 		<div id="editor">function(){}</div>
 		<script>
-			ace.config.set("basePath", "https://pagecdn.io/lib/ace/1.4.13/");
+			ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/");
 			
 			async function load() {
 				const code = await fetch("./viewer/sortingalgosSimplecode.js").then(r=>r.text())
